@@ -3,7 +3,7 @@ import datetime as dt
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.latest_only import LatestOnlyOperator
-from airflow.operators.postgres_operator import PostgresOperator
+
 
 
 default_args = {
@@ -53,4 +53,4 @@ with DAG(
         
         latest_only >> get_rugby_pass_match_data 
         
-        sdfsdasd
+      
