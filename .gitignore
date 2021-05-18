@@ -240,6 +240,7 @@ vignettes/*.pdf
 #airflow
 airflow.db
 logs/*
+airflow-webserver.pid
 
 #data
 data/*
