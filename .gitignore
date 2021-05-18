@@ -228,11 +228,7 @@ vignettes/*.pdf
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
+
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
@@ -242,5 +238,8 @@ vignettes/*.pdf
 # End of https://www.toptal.com/developers/gitignore/api/r,python,macos,visualstudiocode
 
 #airflow
-airflow/*
-!airflow/dags/*
+airflow.db
+logs/*
+
+#data
+data/*
