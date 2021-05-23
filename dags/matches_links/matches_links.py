@@ -3,7 +3,7 @@ import datetime as dt
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.latest_only import LatestOnlyOperator
-
+from airflow.operators.postgres_operator import PostgresOperator
 
 
 default_args = {
@@ -38,19 +38,27 @@ links = {
 
 execution_date = "{{ ds }}"
 
+
 with DAG(
-    "matches_links", default_args=default_args, schedule_interval="0 09 * * *"
+    "matches_links",
+    default_args=default_args,
+    schedule_interval="0 09 * * *",
+    template_searchpath="/Users/harry/rugby_data_pipelines/",
 ) as dag:
-    
+
     latest_only = LatestOnlyOperator(task_id="latest_only")
-    
 
     for comp, link in links.items():
         get_rugby_pass_match_data = BashOperator(
             task_id=f"get_{comp}_links",
-            bash_command=f"Rscript /Users/harry/rugby_data_project_airflow/R/scripts/create_matches_table.R {link} {execution_date}",
+            bash_command=f"Rscript /Users/harry/rugby_data_pipelines/R/scripts/create_matches_table.R {link} {execution_date} {comp}",
         )
-        
-        latest_only >> get_rugby_pass_match_data 
-        
-      
+
+        create_staging_table = PostgresOperator(
+            task_id=f"create_{comp}_staging_table",
+            postgres_conn_id="postgres_default",
+            sql="dags/matches_links/sql/matches_create_staging_table.sql",
+            params={"match": comp, "date": execution_date},
+        )
+
+        latest_only >> get_rugby_pass_match_data >> create_staging_table

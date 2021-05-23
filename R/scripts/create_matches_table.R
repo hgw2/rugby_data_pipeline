@@ -1,5 +1,5 @@
 
-setwd( "/Users/harry/rugby_data_project_airflow")
+setwd( "/Users/harry/rugby_data_pipelines")
 
 args <- commandArgs(trailingOnly = TRUE)
 
@@ -16,12 +16,13 @@ library(rvest)
 
  date <- format(Sys.Date(), "%Y%m%d")
 exc_date <- args[2] 
+comp_name <- args[3]
 
 
 
 exc_date <- exc_date
 
-print(exc_date)
+print(comp_name)
 
 matches <- file.path(formatted_area, "matches")
 
@@ -38,8 +39,7 @@ if (!dir.exists(date_file)){
 
 
   
-  comp_name <- str_extract_all(link,"(?<=com/)[a-z0-9-]+") %>%
-    str_replace_all("-", "_") 
+  
   
   print(paste("Getting", comp_name, "links"))
 

@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS rugby_pass_matches.match_links;
