@@ -1,10 +1,11 @@
 """create matches table
 
-Revision ID: 45a1854431be
+Revision ID: 2ef8241ad4a9
 Revises: 
-Create Date: 2021-05-23 18:34:22.321257
+Create Date: 2021-05-23 19:15:41.853333
 
 """
+
 from alembic import op
 import sqlalchemy as sa
 import os
@@ -12,7 +13,7 @@ import os
 this_dir = os.path.dirname(os.path.abspath(__file__))
 
 # revision identifiers, used by Alembic.
-revision = "45a1854431be"
+revision = '2ef8241ad4a9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,3 +32,7 @@ def downgrade():
     with open(file_path, "r") as ddl:
         sql_text = ddl.read()
         alembic_op.execute(sql_text)
+
+
+
+
